@@ -73,10 +73,15 @@ public final class ZygoteHooks {
         Daemons.startPostZygoteFork();
     }
 
+    public void postExec(int debugFlags) {
+        nativePostExec(debugFlags);
+    }
+
     private static native long nativePreFork();
     private static native void nativePostForkChild(long token, int runtimeFlags,
                                                    boolean isSystemServer, boolean isZygote,
                                                    String instructionSet);
+    private static native void nativePostExec(int debugFlags);
 
     /**
      * We must not fork until we're single-threaded again. Wait until /proc shows we're
